@@ -20,7 +20,8 @@ class Variable:
     def __init__(self, data, name=None):
         if data is not None:
             if not isinstance(data, np.ndarray):
-                raise TypeError(f'{type(data)}은(는) 지원하지 않습니다.')
+                print(type(data))
+                raise TypeError(f"{type(data)}은(는) 지원하지 않습니다.")
             
         self.data = data
         self.name = name
@@ -194,6 +195,7 @@ def add(x0, x1):
     return Add()(x0, x1)
 
 def mul(x0, x1):
+    x1 = as_array(x1)
     return Mul()(x0, x1)
 
 def neg(x): # step22
@@ -205,7 +207,7 @@ def sub(x0, x1): # step22
 
 def rsub(x0, x1): # step22
     x1 = as_array(x1)
-    return sub()(x1, x0)
+    return Sub()(x1, x0)
 
 def div(x0, x1): # step22
     x1 = as_array(x1)
@@ -217,16 +219,16 @@ def rdiv(x0, x1): # step22
 def pow(x, c): # step22
     return Pow(c)(x)
 
-# Variable.__mul__ = mul
-# Variable.__rmul__ = mul # step21
-# Variable.__add__ = add
-# Variable.__radd__ = add # step21
-# Variable.__neg__ = neg # step22
-# Variable.__sub__ = sub # step22
-# Variable.__rsub__ = rsub # step22
-# Variable.__truediv__ = div # step22
-# Variable.__rtruediv__ = rdiv # step22
-# Variable.__pow__ = pow # step22
+Variable.__mul__ = mul
+Variable.__rmul__ = mul # step21
+Variable.__add__ = add
+Variable.__radd__ = add # step21
+Variable.__neg__ = neg # step22
+Variable.__sub__ = sub # step22
+Variable.__rsub__ = rsub # step22
+Variable.__truediv__ = div # step22
+Variable.__rtruediv__ = rdiv # step22
+Variable.__pow__ = pow # step22
 
 def numerical_diff(f, x, eps=1e-4):
     x0 = Variable(x.data - eps)
