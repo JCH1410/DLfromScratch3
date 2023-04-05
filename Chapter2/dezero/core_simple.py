@@ -214,6 +214,7 @@ def div(x0, x1): # step22
     return Div()(x0, x1)
 
 def rdiv(x0, x1): # step22
+    x1 = as_array(x1)
     return Div()(x1, x0)
 
 def pow(x, c): # step22
